@@ -1,0 +1,38 @@
+{% extends "basic_app/basic.html" %}
+
+{% block body_block %}
+<form method="post" action="">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" class="btn-btn-primary" value="submit">
+</form>  
+<hr>
+<ol>
+<div class="container">
+{% for a in task_list  %}
+    {% if a %}
+    <div class="row mx-auto my-2">
+        <div class="col-10">
+            <li>{{a}}</li>
+        </div>
+        <div class="col-2">
+            {% comment %} <a class="btn btn-danger" href="{% url 'delete' pk=a.pk %}">delete</a>         {% endcomment %}
+            <form method="POST" action="/task_delete/{{a.id}}/">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-danger" value="Delete">
+            </form>  
+        </div>
+
+     </div>
+    {% else %}
+        <h3>NO task created</h3>
+    
+    {% endif %}
+   
+{% endfor %}
+</ol>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="d.js"></script>
+{% endblock body_block %}
